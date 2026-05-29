@@ -1,4 +1,4 @@
-package algoritmo;
+package cripto;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,12 +21,12 @@ public class criptdecriptRSA {
 	public static final String PATH_CHAVE_PRIVADA = "C:/keys/private.key";
 
 	/**
-	 * Local da chave pública no sistema de arquivos.
+	 * Local da chave pÃºblica no sistema de arquivos.
 	 */
 	public static final String PATH_CHAVE_PUBLICA = "C:/keys/public.key";
 
 	/**
-	 * Gera a chave que contém um par de chave Privada e Pública usando 1025 bytes.
+	 * Gera a chave que contÃ©m um par de chave Privada e PÃºblica usando 1025 bytes.
 	 * Armazena o conjunto de chaves nos arquivos private.key e public.key
 	 */
 	public static void geraChave() {
@@ -51,7 +51,7 @@ public class criptdecriptRSA {
 
 			chavePublicaFile.createNewFile();
 
-			// Salva a Chave Pública no arquivo
+			// Salva a Chave PÃºblica no arquivo
 			ObjectOutputStream chavePublicaOS = new ObjectOutputStream(new FileOutputStream(chavePublicaFile));
 			chavePublicaOS.writeObject(key.getPublic());
 			chavePublicaOS.close();
@@ -67,7 +67,7 @@ public class criptdecriptRSA {
 	}
 
 	/**
-	 * Verifica se o par de chaves Pública e Privada já foram geradas.
+	 * Verifica se o par de chaves PÃºblica e Privada jÃ¡ foram geradas.
 	 */
 	public static boolean verificaSeExisteChavesNoSO() {
 
@@ -82,14 +82,14 @@ public class criptdecriptRSA {
 	}
 
 	/**
-	 * Criptografa o texto puro usando chave pública.
+	 * Criptografa o texto puro usando chave pÃºblica.
 	 */
 	public static byte[] criptografa(String texto, PublicKey chave) {
 		byte[] cipherText = null;
 
 		try {
 			final Cipher cipher = Cipher.getInstance(ALGORITHM);
-			// Criptografa o texto puro usando a chave Púlica
+			// Criptografa o texto puro usando a chave PÃºlica
 			cipher.init(Cipher.ENCRYPT_MODE, chave);
 			cipherText = cipher.doFinal(texto.getBytes());
 		} catch (Exception e) {
@@ -125,17 +125,17 @@ public class criptdecriptRSA {
 
 		try {
 
-			// Verifica se já existe um par de chaves, caso contrário gera-se as chaves..
+			// Verifica se jÃ¡ existe um par de chaves, caso contrÃ¡rio gera-se as chaves..
 			if (!verificaSeExisteChavesNoSO()) {
-				// Método responsável por gerar um par de chaves usando o algoritmo RSA e
+				// MÃ©todo responsÃ¡vel por gerar um par de chaves usando o algoritmo RSA e
 				// armazena as chaves nos seus respectivos arquivos.
 				geraChave();
 			}
 
-			final String msgOriginal = "Algoritmo RSA de chave assimétrica";
+			final String msgOriginal = "Algoritmo RSA de chave assimÃ©trica";
 			ObjectInputStream inputStream = null;
 
-			// Criptografa a Mensagem usando a Chave Pública
+			// Criptografa a Mensagem usando a Chave PÃºblica
 			inputStream = new ObjectInputStream(new FileInputStream(PATH_CHAVE_PUBLICA));
 			final PublicKey chavePublica = (PublicKey) inputStream.readObject();
 			final byte[] textoCriptografado = criptografa(msgOriginal, chavePublica);
