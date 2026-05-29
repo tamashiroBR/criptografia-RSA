@@ -1,4 +1,4 @@
-# Criptografia Algoritmo
+# Criptografia Assimétrica
 
 Este repositório contém uma implementação em Java de criptografia e descriptografia utilizando o algoritmo RSA de chave assimétrica.
 
